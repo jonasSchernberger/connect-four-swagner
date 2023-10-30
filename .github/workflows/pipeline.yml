@@ -12,6 +12,13 @@ jobs:
           dotnet-version: 7
       - name: Checkout Repo
         uses: actions/checkout@v4
+      - name: Cache Dependencies
+        uses: action/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys:
+            ${{ runner.os }}-nuget-
       - name: Build
         run: dotnet build
       - name: Upload rtifacts
@@ -32,6 +39,13 @@ jobs:
           dotnet-version: 7
       - name: Checkout Repo
         uses: actions/checkout@v4
+      - name: Cache Dependencies
+        uses: action/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys:
+            ${{ runner.os }}-nuget-
       - name: Download Artifacts
         uses: actions/download-artifact@v3
         with:
